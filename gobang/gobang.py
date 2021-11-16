@@ -46,9 +46,13 @@ def main():
             print("\033[1;30;42m Please o enter the coordinator(ex:I5): \033[0m",end=" ")
 
         str=input()
-        ch=str[0]
-        x=ord(ch)-65
-        y=int(str[1])-1
+        try:
+            ch=str[0]
+            x=ord(ch)-65
+            y=int(str[1])-1
+        except:
+            print("invalid input, please enter again!")
+            continue
 
         if (x<0 or x>=9 or y<0 or y>=9):
             print("\033[31m***The coordinator is invalid, please enter again!***\033[0m")
