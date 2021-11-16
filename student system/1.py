@@ -141,7 +141,37 @@ def delete():
                 mark=False
 
 def modify():
-    return
+    show()
+    if os.path.exists("1.txt"):
+        with open("1.txt","r") as rfile:
+            student_old=rfile.readlines()
+    else:
+        return
+    studentid=input("Please enter the student id number:")
+    with open("1.txt","w") as wfile:
+        for student in student_old:
+            d=dict(eval(student))
+            if d["id"]==studentid:
+                print("We have found this student and can modify his information!")
+                while True:
+                    try:
+                        d["name"]=input("Please enter the name:")
+                        d["english"]=int(input("please enter the english result:"))
+                        d["python"]=int(input("please enter the python result:"))
+                        d["c"]=int(input("please enter the c result:"))
+                    except:
+                        print("valid input, please try it again!")
+                    else:
+                        break
+                student = str(d)
+                wfile.write(student+"\n")
+                print("modified successfully!")
+            else:
+                print("No student ID number is {}".format(studentid))
+                wfile.write(student)
+    mark = input("Do you want to continue?(y/n)")
+    if mark == "y":
+        modify()
 
 def sort():
     return
