@@ -40,7 +40,7 @@ def main():
 
         if flagNum==1:
             flagch="*"
-            print("\033[1;37;45m Please * enter the coordinator(ex:A1): \033[0m",end=" ")
+            print("\033[1;30;43m Please * enter the coordinator(ex:A1): \033[0m",end=" ")
         else:
             flagch="o"
             print("\033[1;30;42m Please o enter the coordinator(ex:I5): \033[0m",end=" ")
@@ -49,11 +49,17 @@ def main():
         ch=str[0]
         x=ord(ch)-65
         y=int(str[1])-1
-        checkerboard[x][y]=flagch
 
-        if (x<0 or x>9 or y<0 or y>9):
+        if (x<0 or x>=9 or y<0 or y>=9):
             print("\033[31m***The coordinator is invalid, please enter again!***\033[0m")
             continue
+
+        if checkerboard[x][y]=="-":
+            checkerboard[x][y] = flagch
+        else:
+            print("\033[31m*********This point has been localed, please select another point.")
+            continue
+
         if (y-4>=0):
             if checkerboard[x][y-1]==flagch and checkerboard[x][y-2]==flagch and checkerboard[x][y-3]==flagch and checkerboard[x][y-4]==flagch:
                 finish=True
@@ -73,8 +79,28 @@ def main():
             if checkerboard[x+1][y]==flagch and checkerboard[x+2][y]==flagch and checkerboard[x+3][y]==flagch and checkerboard[x+4][y]==flagch:
                 finish=True
                 msg(checkerboard,flagNum)
-        flagNum*=-1
 
+        if (x-4>=0 and y-4>=0):
+            if (checkerboard[x-1][y-1]==flagch and checkerboard[x-2][y-2]==flagch and checkerboard[x-3][y-3]==flagch and checkerboard[x-4][y-4]==flagch):
+                finish = True
+                msg(checkerboard,flagNum)
+
+        if (x+4<=9 and y-4>=0):
+            if (checkerboard[x+1][y-1]==flagch and checkerboard[x+2][y-2]==flagch and checkerboard[x+3][y-3]==flagch and checkerboard[x+4][y-4]==flagch):
+                finish = True
+                msg(checkerboard,flagNum)
+
+        if (x-4>=0 and y+4<=9):
+            if (checkerboard[x-1][y+1]==flagch and checkerboard[x-2][y+2]==flagch and checkerboard[x-3][y+3]==flagch and checkerboard[x-4][y+4]==flagch):
+                finish = True
+                msg(checkerboard,flagNum)
+
+        if (x+4<=9 and y+4<=9):
+            if (checkerboard[x+1][y+1]==flagch and checkerboard[x+2][y+2]==flagch and checkerboard[x+3][y+3]==flagch and checkerboard[x+4][y+4]==flagch):
+                finish = True
+                msg(checkerboard,flagNum)
+
+        flagNum*=-1
 
 main()
 
