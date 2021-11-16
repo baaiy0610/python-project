@@ -73,13 +73,44 @@ def show_student(studentList):
             str(info.get("c")),str(info.get("english")+info.get("python")+info.get("c")).center(12)))
 
 def search():
-    return
+    mark=True
+    student_query=[]
+    while mark==True:
+        id=""
+        name=""
+        if os.path.exists("1.txt"):
+            mode=input("which mode you want to choose? (1:ID number 2:Name)")
+            if mode=="1":
+                id=input("Please enter the ID number:")
+            elif mode=="2":
+                name=input("Please enter the name:")
+            else:
+                print("The mode is not valid, please input again!")
+                search()
+            with open ("1.txt","r") as file:
+                student=file.readlines()
+                for list in student:
+                    d=dict(eval(list))
+                    if id !="":
+                        if id==d["id"]:
+                            student_query.append(d)
+                    elif name!="":
+                        if name==d["name"]:
+                            student_query.append(d)
+                show_student(student_query)
+                student_query.clear()
+                inputmark=input("Do you want to continue?(y/n)")
+                if inputmark=="n":
+                    break
+        else:
+            print("There is no student information!")
+            return
 
 def delete():
     mark=True
     while mark:
         studentID= input("Please enter the student ID number:")
-        if studentID is not "":
+        if studentID != "":
             if os.path.exists("1.txt"):
                 with open ("1.txt","r") as rfile:
                     student_old=rfile.readlines()
