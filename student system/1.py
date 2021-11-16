@@ -174,7 +174,37 @@ def modify():
         modify()
 
 def sort():
-    return
+    show()
+    if os.path.exists("1.txt"):
+        with open("1.txt","r") as file:
+            student_old=file.readlines()
+            student_new=[]
+        for list in student_old:
+            d= dict(eval(list))
+            student_new.append(d)
+    else:
+        return
+    asorder=input("Please choose(1.Ascending 2.Descending)")
+    if asorder=="1":
+        asorder_bool=False
+    elif asorder=="2":
+        asorder_bool=True
+    else:
+        print("Invalid input, please enter again!")
+        sort()
+    mode = input("Please select the order mode(1.english 2.python 3.c 4.overall result)")
+    if mode=="1":
+        student_new.sort(key=lambda x: x["english"], reverse=asorder_bool)
+    elif mode=="2":
+        student_new.sort(key=lambda x: x["python"], reverse=asorder_bool)
+    elif mode=="3":
+        student_new.sort(key=lambda x: x["c"],reverse=asorder_bool)
+    elif mode=="4":
+        student_new.sort(key=lambda x: x["english"]+x["python"]+x["c"], reverse=asorder_bool)
+    else:
+        print("invalid input! Please enter again!")
+        sort()
+    show_student(student_new)
 
 def total():
     if os.path.exists("1.txt"):
